@@ -55,9 +55,16 @@ class Customer
       else
         new_ticket = Ticket.new({'film_id' => film.id, 'customer_id' => @id})
         new_ticket.save()
-        @funds = remove_funds(film.price)
         update()
     end
+  end
+
+  def ticket_count()
+    sql = "SELECT tickets.* FROM tickets INNER JOIN customers ON customers.id = tickets.customer_id WHERE customer_id = $1"
+    values = [@id]
+    ticket_data = SqlRunner.run(sql, values)
+    new_ticket = ticket_data.map{|ticket| Ticket.new(ticket)}
+    return new_ticket.count
   end
 
   def remove_funds(amount)

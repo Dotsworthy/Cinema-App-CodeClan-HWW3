@@ -29,6 +29,20 @@ class Film
     @id = customer['id'].to_i
   end
 
+  def update()
+    sql = "
+    UPDATE films SET (
+      title,
+      price
+    ) =
+    (
+      $1, $2
+    )
+    WHERE id = $3"
+    values = [@title, @price, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def delete()
     sql = "DELETE FROM films WHERE id = $1"
     values = [@id]
@@ -40,6 +54,15 @@ class Film
   values = [@id]
   customer_data = SqlRunner.run(sql, values)
   return customer_data.map {|customer| Customer.new (customer)}
+  end
+
+  def customer_count()
+    sql = "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id WHERE film_id = $1"
+    values = [@id]
+    ticket_data = SqlRunner.run(sql, values)
+    customers = ticket_data.map{|ticket| Ticket.new(ticket)}
+    return customers.count
+    # return customers.uniq {|customer| customer} do I actually need this?
   end
 
   def self.all()
