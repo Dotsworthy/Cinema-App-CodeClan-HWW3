@@ -16,6 +16,7 @@ CREATE TABLE customers (
 
 CREATE TABLE tickets (
   id SERIAL PRIMARY KEY,
-  film_id INT REFERENCES films(id),
-  customer_id INT REFERENCES customers(id)
+  film_id INT REFERENCES films(id) ON DELETE CASCADE,
+-- do I actually need ON DELETE CASCADE?
+  customer_id INT REFERENCES customers(id) ON DELETE CASCADE
 )

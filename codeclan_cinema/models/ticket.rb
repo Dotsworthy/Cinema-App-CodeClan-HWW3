@@ -11,7 +11,7 @@ class Ticket
     @id = options['id'].to_i if options['id']
   end
 
-  def save
+  def save()
     sql = "INSERT INTO tickets
     (
       film_id,
@@ -29,4 +29,8 @@ class Ticket
     @id = customer['id'].to_i
   end
 
+  def self.delete_all()
+    sql = "DELETE FROM tickets"
+    SqlRunner.run(sql)
+  end
 end

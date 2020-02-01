@@ -12,7 +12,7 @@ class Customer
   end
 
 # I am not 100% sure what is going on in this code
-  def save
+  def save()
     sql = "INSERT INTO customers
     (
       name,
@@ -29,4 +29,8 @@ class Customer
     @id = customer['id'].to_i
   end
 
+  def self.delete_all()
+    sql = "DELETE FROM customers"
+    SqlRunner.run(sql)
+  end
 end
