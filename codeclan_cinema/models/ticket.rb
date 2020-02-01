@@ -27,6 +27,7 @@ class Ticket
     values = [@film_id, @customer_id]
     customer = SqlRunner.run(sql, values).first
     @id = customer['id'].to_i
+
   end
 
   def delete()
@@ -41,8 +42,6 @@ class Ticket
   #   ticket = SqlRunner.run(sql, values).first
   #   return Ticket.new(ticket)
   # end
-
-  
 
   def self.all()
   sql = "SELECT * FROM tickets"

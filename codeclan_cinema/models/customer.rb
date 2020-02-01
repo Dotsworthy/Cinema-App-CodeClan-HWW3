@@ -29,10 +29,47 @@ class Customer
     @id = customer['id'].to_i
   end
 
+  def update()
+    sql = "
+    UPDATE customers SET (
+      name,
+      funds
+    ) =
+    (
+      $1, $2
+    )
+    WHERE id = $3"
+    values = [@name, @funds, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def delete()
     sql = "DELETE FROM customers WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
+  end
+
+  def buy_ticket(film)
+    if remove_funds(film.price) == false
+      return "Not enough money. Transaction cancelled"
+      else
+        new_ticket = Ticket.new({'film_id' => film.id, 'customer_id' => @id})
+        new_ticket.save()
+        @funds = remove_funds(film.price)
+        update()
+    end
+  end
+
+  def remove_funds(amount)
+    if @funds < (amount)
+      return false
+    else
+    @funds -= amount
+  end
+  end
+
+  def add_funds(amount)
+    @funds += amount
   end
 
   def films()
