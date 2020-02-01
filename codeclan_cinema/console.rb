@@ -12,12 +12,21 @@ Customer.delete_all()
 
 customer1 = Customer.new({'name' => 'Arnold', 'funds' => '20.00'})
 customer1.save()
+customer2 = Customer.new({'name' => 'Sylvester', 'funds' => '15.00'})
+customer2.save()
+customer3 = Customer.new({'name' => 'Wesley', 'funds' => '2.00'})
+customer3.save()
 
 film1 = Film.new({'title'=> 'Terminator', 'price' => '7.95'})
 film1.save()
+film2 = Film.new({'title'=> 'Rambo', 'price' => '7.95'})
+film2.save()
+film3 = Film.new({'title' => 'Blade', 'price' => '7.95'})
 
 ticket1 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer1.id})
 ticket1.save()
+ticket2 = Ticket.new({'film_id' => film2.id, 'customer_id' => customer2.id})
+ticket2.save()
 
 binding.pry()
 nil

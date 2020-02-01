@@ -11,7 +11,7 @@ class Film
     @id = options['id'].to_i if options['id']
   end
 
-  def save
+  def save()
     sql = "INSERT INTO films
     (
       title,
@@ -27,6 +27,12 @@ class Film
     values = [@title, @price]
     customer = SqlRunner.run(sql, values).first
     @id = customer['id'].to_i
+  end
+
+  def delete()
+    sql = "DELETE FROM films WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql, values)
   end
 
   def self.delete_all()
