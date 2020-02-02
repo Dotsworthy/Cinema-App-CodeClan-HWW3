@@ -49,11 +49,11 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-  def buy_ticket(film)
-    if remove_funds(film.price) == false
+  def buy_ticket(screening)
+    if remove_funds(screening.price) == false
       return "Not enough money. Transaction cancelled"
       else
-        new_ticket = Ticket.new({'film_id' => film.id, 'customer_id' => @id})
+        new_ticket = Ticket.new({'film_id' => screening.film_id, 'screening_id' => screening.id, 'customer_id' => @id})
         new_ticket.save()
         update()
     end

@@ -3,7 +3,7 @@ require_relative('../db/sql_runner')
 class Screening
 
   attr_reader :id
-  attr_accessor :film_id, :tickets_available, :showing, :day, :type
+  attr_accessor :film_id, :tickets_available, :showing, :day, :type, :price
 
   def initialize(options)
     @film_id = options['film_id'].to_i
@@ -11,6 +11,7 @@ class Screening
     @showing = options['showing']
     @day = options['day']
     @type = options['type']
+    @price = options['price'].to_f
     @id = options['id'].to_i if options['id']
   end
 
@@ -21,7 +22,8 @@ class Screening
       tickets_available,
       showing,
       day,
-      type
+      type,
+      price
       )
       VALUES
       (
@@ -29,10 +31,11 @@ class Screening
       $2,
       $3,
       $4,
-      $5
+      $5,
+      $6
       )
       RETURNING id"
-    values = [@film_id, @tickets_available, @showing, @day, @type]
+    values = [@film_id, @tickets_available, @showing, @day, @type, @price]
     screening = SqlRunner.run(sql, values).first
     @id = screening['id'].to_i
   end
@@ -45,13 +48,15 @@ class Screening
       showing,
       day,
       type,
+      price
     ) =
     (
       $1,
       $2,
       $3,
       $4,
-      $5
+      $5,
+      $6
     )
     WHERE id = $6"
     values = [@film_id, @tickets_available, @showing, @day, @type, @id]

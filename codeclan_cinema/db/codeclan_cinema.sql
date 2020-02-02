@@ -1,13 +1,12 @@
-DROP TABLE screenings;
 DROP TABLE tickets;
+DROP TABLE screenings;
 DROP TABLE customers;
 DROP TABLE films;
 -- DROP TABLE screens;
 
 CREATE TABLE films (
   id SERIAL PRIMARY KEY,
-  title VARCHAR(255),
-  price DECIMAL(2)
+  title VARCHAR(255)
 );
 
 CREATE TABLE customers (
@@ -25,13 +24,6 @@ CREATE TABLE customers (
 --   3d_imax BOOLEAN,
 -- );
 
-CREATE TABLE tickets (
-  id SERIAL PRIMARY KEY,
-  film_id INT REFERENCES films(id) ON DELETE CASCADE,
--- do I actually need ON DELETE CASCADE?
-  customer_id INT REFERENCES customers(id) ON DELETE CASCADE
-);
-
 CREATE TABLE screenings (
   id SERIAL PRIMARY KEY,
   film_id INT REFERENCES films(id) ON DELETE CASCADE,
@@ -40,5 +32,14 @@ CREATE TABLE screenings (
   tickets_available INT,
   showing VARCHAR,
   day VARCHAR,
-  type VARCHAR
-)
+  type VARCHAR,
+  price DECIMAL(2)
+);
+
+CREATE TABLE tickets (
+  id SERIAL PRIMARY KEY,
+  film_id INT REFERENCES films(id) ON DELETE CASCADE,
+-- do I actually need ON DELETE CASCADE?
+  customer_id INT REFERENCES customers(id) ON DELETE CASCADE,
+  screening_id INT REFERENCES screenings(id) ON DELETE CASCADE
+);
