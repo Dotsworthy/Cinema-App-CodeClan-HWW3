@@ -81,4 +81,12 @@ class Screening
     SqlRunner.run(sql)
   end
 
+  def reduce_tickets(amount)
+    if @tickets_available < amount
+      return false
+    else
+      @tickets_available -= amount
+    end
+  end
+
 end
