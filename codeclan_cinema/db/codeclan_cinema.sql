@@ -36,6 +36,7 @@ CREATE TABLE screenings (
   price DECIMAL(2)
 );
 
+-- film_id changed to screening_id
 CREATE TABLE tickets (
   id SERIAL PRIMARY KEY,
   film_id INT REFERENCES films(id) ON DELETE CASCADE,

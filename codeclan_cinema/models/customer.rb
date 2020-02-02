@@ -59,8 +59,8 @@ class Customer
     elsif remove_funds(total_price) == false
       return "Not enough money. Transaction cancelled"
       else
-        new_ticket = Ticket.new({'film_id' => screening.film_id, 'screening_id' => screening.id, 'customer_id' => @id})
-        new_ticket.save()
+        new_ticket = Ticket.new({'customer_id' => @id, 'screening_id' => screening.id, 'film_id' => screening.film_id})
+        num_of_tickets.times { new_ticket.save() }
         update()
     end
   end

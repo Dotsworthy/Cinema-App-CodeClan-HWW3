@@ -53,6 +53,7 @@ class Film
   return customer_data.map {|customer| Customer.new (customer)}
   end
 
+# this needs to be refactored as no longer works?
   def customer_count()
     sql = "SELECT customers.* FROM customers INNER JOIN tickets ON tickets.customer_id = customers.id WHERE film_id = $1"
     values = [@id]
