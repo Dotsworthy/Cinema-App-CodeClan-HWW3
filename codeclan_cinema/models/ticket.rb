@@ -73,8 +73,20 @@ end
   return result
   end
 
-  # def self.most_tickets(film_id)
-  #   result = self.find_film(film_id)
-  #   result.max_by() {|k,v| v = @screeningid.length}
-  # end
+  def self.find_screening(screening_id)
+    sql = "SELECT * FROM tickets WHERE screening_id = $1"
+    values = [screening_id]
+    film_data = SqlRunner.run(sql,values)
+    result = film_data.map{|ticket| Ticket.new(ticket)}
+    return result
+  end
+
+# just couldn't work out how to do this!
+  def self.most_tickets(film_id)
+    result = self.find_film(film_id)
+    return result.reduce {|sum, result| sum += result}
+
+    # return result.values.count(@screening_id)
+    # return result.screening_id.max {|current_screening, next_screening| current_screening <=> next_screening}
+  end
 end
