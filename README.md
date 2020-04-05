@@ -1,4 +1,5 @@
 # Cinema App: CodeClan Homework Week 3
+Cinema App devised for CodeClan based on the following brief:
 
 Create a system that handles bookings for our newly built cinema! It's enough if you can call your methods in pry, don't worry about an interface.
 
